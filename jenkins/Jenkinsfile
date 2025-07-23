@@ -1,25 +1,30 @@
 pipeline{
-  agent none
+  agent 'DevServers'
   stages{
     stage('build'){
       steps{
-        echo "building..."
+        sh 'maven clean package'
+      }
+      post{
+        success{
+          archiveArtifacts artifacts: '**/target/*.war'
+        }
       }
     }
 
-    stage('test'){
-      steps{
-        echo "testing..."
+    // stage('test'){
+    //   steps{
+    //     echo "testing..."
 
-      }
-    }
+    //   }
+    // }
     
-    stage('deploy'){
-      steps{
-        echo "deploying..."
+    // stage('deploy'){
+    //   steps{
+    //     echo "deploying..."
         
-      }
-    }
+    //   }
+    // }
 
   }
 }
